@@ -1,0 +1,38 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+    body {
+        @apply bg-gray-50 text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300;
+        font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-card {
+    background: rgba(17, 24, 39, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.taobao-gradient-orange {
+    background: linear-gradient(135deg, #ff5000 0%, #ff9000 100%);
+}
+
+.taobao-gradient-red {
+    background: linear-gradient(135deg, #ff0036 0%, #ff5000 100%);
+}
+
+.taobao-text-gradient {
+    background: linear-gradient(135deg, #ff5000 0%, #ff0036 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
