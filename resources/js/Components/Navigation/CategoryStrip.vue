@@ -19,7 +19,7 @@ const navItems = [
     { name: 'Besmart Live', icon: Tv, badge: 'LIVE', color: '#ff0036' },
     { name: 'Enterprise Purchase', icon: Building2, badge: 'B2B', color: '#ff5000' },
     { name: 'Tmall Supermarket', icon: Store, badge: 'Tmall', color: '#ff0036' },
-    { name: 'National Subsidies', icon: Ticket, badge: '7.7折', color: '#ff9000' },
+    { name: 'National Subsidies', icon: Ticket, badge: '23% OFF', color: '#ff9000' },
     { name: 'Coupon Center', icon: BadgePercent, badge: 'Vouchers', color: '#ff5000' },
     { name: 'Solar Hub', icon: Sun, badge: 'Green', color: '#10b981' },
 ];

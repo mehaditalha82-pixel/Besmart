@@ -133,7 +133,7 @@ const flashProducts = [
             <div class="relative z-10 max-w-xl space-y-4">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-yellow-200 text-xs font-black uppercase tracking-wider">
                     <Sparkles class="w-4 h-4 text-yellow-300 animate-spin-slow" />
-                    狂暑季 Super Summer Sale • Up to 77% Off
+                    Besmart Super Summer Sale • Up to 23% Off
                 </div>
 
                 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight drop-shadow-md">
@@ -174,7 +174,7 @@ const flashProducts = [
                             </div>
                             <div>
                                 <h3 class="font-extrabold text-base text-gray-900 dark:text-white flex items-center gap-1.5">
-                                    百亿补贴 <span class="text-xs font-normal text-gray-500">Billions in Subsidies</span>
+                                    Billions in Subsidies
                                 </h3>
                                 <div class="text-[10px] text-red-500 font-bold">Authenticity Guaranteed • Official Subsidy</div>
                             </div>
@@ -227,7 +227,7 @@ const flashProducts = [
                             </div>
                             <div>
                                 <h3 class="font-extrabold text-base text-gray-900 dark:text-white flex items-center gap-1.5">
-                                    淘抢购 <span class="text-xs font-normal text-gray-500">Taobao Flash Sale</span>
+                                    Besmart Flash Sale Deals
                                 </h3>
                                 <div class="text-[10px] text-[#ff5000] font-bold">Limited Time Deals</div>
                             </div>

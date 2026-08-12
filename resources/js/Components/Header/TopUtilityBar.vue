@@ -22,7 +22,7 @@ const appStore = useAppStore();
 const cartStore = useCartStore();
 
 const isBannerVisible = ref(true);
-const selectedRegion = ref('Chinese mainland');
+const selectedRegion = ref('Global / International');
 const isRegionDropdownOpen = ref(false);
 
 const regions = [
@@ -53,7 +53,7 @@ function selectRegion(region) {
                         Flash Promo
                     </span>
                     <span class="font-bold tracking-wide text-xs sm:text-sm">
-                        狂暑季 叠大额券 7.7折起
+                        Summer Mega Sale | Extra Coupons Up to 23% Off
                     </span>
                     <span class="hidden md:inline-block text-white/80 text-xs">
                         • Limited Time Enterprise Vouchers Available

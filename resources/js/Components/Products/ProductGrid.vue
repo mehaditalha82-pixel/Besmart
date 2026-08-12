@@ -15,6 +15,13 @@ import {
     Layers,
 } from 'lucide-vue-next';
 
+const props = defineProps({
+    products: {
+        type: Array,
+        default: () => [],
+    },
+});
+
 const appStore = useAppStore();
 const cartStore = useCartStore();
 
@@ -22,15 +29,15 @@ const activeTab = ref('you_might_like');
 
 const tabs = [
     { id: 'you_might_like', name: 'You might like', icon: Sparkles },
-    { id: 'trendy_electronics', name: 'Trendy Electronics', icon: Cpu },
     { id: 'green_energy', name: 'Green Energy', icon: Zap },
+    { id: 'trendy_electronics', name: 'Trendy Electronics', icon: Cpu },
     { id: 'car_performance', name: 'Car Performance', icon: Car },
 ];
 
-const allProducts = [
+const defaultCatalog = [
     {
         id: 301,
-        title: 'EV Solar Inverter 5KW Hybrid Grid',
+        title: 'EV Solar Inverter 5KW Hybrid Grid Pure Sine',
         tab: 'green_energy',
         category: 'Green Energy',
         sku: 'SKU-EV-5000',
@@ -38,6 +45,7 @@ const allProducts = [
         sales_count: '3,400+ sold',
         moq: 1,
         rating: 4.9,
+        active_mode: 'b2c',
         image_url: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=600&q=80',
         b2b_pricings: [
             { min_qty: 10, max_qty: 49, unit_price: '420.00' },
@@ -46,7 +54,7 @@ const allProducts = [
     },
     {
         id: 302,
-        title: 'Carbon Fiber Turbocharger Air Intake',
+        title: 'Carbon Fiber Turbocharger Air Intake System',
         tab: 'car_performance',
         category: 'Car Parts',
         sku: 'SKU-CAR-TRB',
@@ -54,6 +62,7 @@ const allProducts = [
         sales_count: '1,850+ sold',
         moq: 5,
         rating: 4.8,
+        active_mode: 'b2c',
         image_url: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=600&q=80',
         b2b_pricings: [
             { min_qty: 20, max_qty: 99, unit_price: '150.00' },
@@ -62,7 +71,7 @@ const allProducts = [
     },
     {
         id: 303,
-        title: 'Botanical Skincare Serum Set 50ml',
+        title: 'Botanical Hydrating Skincare Serum Set 50ml',
         tab: 'you_might_like',
         category: 'Cosmetics',
         sku: 'SKU-COS-SERUM',
@@ -70,6 +79,7 @@ const allProducts = [
         sales_count: '8,900+ sold',
         moq: 1,
         rating: 5.0,
+        active_mode: 'b2c',
         active_flash_deal: { discount_price: '49.99' },
         image_url: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80',
         b2b_pricings: [
@@ -79,7 +89,7 @@ const allProducts = [
     },
     {
         id: 304,
-        title: 'Smart AI Microprocessor Board Kit',
+        title: 'Smart AI Microprocessor Dev Board Kit',
         tab: 'trendy_electronics',
         category: 'Electronics',
         sku: 'SKU-MCU-AI',
@@ -87,6 +97,7 @@ const allProducts = [
         sales_count: '5,200+ sold',
         moq: 2,
         rating: 4.9,
+        active_mode: 'b2c',
         image_url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
         b2b_pricings: [
             { min_qty: 25, max_qty: 99, unit_price: '98.00' },
@@ -95,7 +106,7 @@ const allProducts = [
     },
     {
         id: 305,
-        title: '48V 100Ah Lithium LiFePO4 Battery Pack',
+        title: '48V 100Ah Lithium LiFePO4 Battery Pack Storage',
         tab: 'green_energy',
         category: 'Green Energy',
         sku: 'SKU-BAT-48V',
@@ -103,6 +114,7 @@ const allProducts = [
         sales_count: '1,200+ sold',
         moq: 1,
         rating: 4.9,
+        active_mode: 'b2c',
         image_url: 'https://images.unsplash.com/photo-1558441719-6779b6869537?auto=format&fit=crop&w=600&q=80',
         b2b_pricings: [
             { min_qty: 5, max_qty: 19, unit_price: '790.00' },
@@ -111,7 +123,7 @@ const allProducts = [
     },
     {
         id: 306,
-        title: 'High-Flow Fuel Injector Set 1000cc',
+        title: 'High-Flow Performance Fuel Injector Set 1000cc',
         tab: 'car_performance',
         category: 'Car Parts',
         sku: 'SKU-INJ-1000',
@@ -119,19 +131,61 @@ const allProducts = [
         sales_count: '950+ sold',
         moq: 4,
         rating: 4.7,
+        active_mode: 'b2c',
         image_url: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=600&q=80',
         b2b_pricings: [
             { min_qty: 10, max_qty: 49, unit_price: '210.00' },
             { min_qty: 50, max_qty: null, unit_price: '185.00' },
         ],
     },
+    {
+        id: 307,
+        title: 'Monocrystalline Solar Panel 550W Tier-1',
+        tab: 'green_energy',
+        category: 'Green Energy',
+        sku: 'SKU-SOL-550W',
+        retail_price: '215.00',
+        sales_count: '4,100+ sold',
+        moq: 2,
+        rating: 4.9,
+        active_mode: 'b2c',
+        image_url: 'https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=600&q=80',
+        b2b_pricings: [
+            { min_qty: 20, max_qty: 99, unit_price: '175.00' },
+            { min_qty: 100, max_qty: null, unit_price: '155.00' },
+        ],
+    },
+    {
+        id: 308,
+        title: 'High-Performance Brake Rotor & Ceramic Pad Kit',
+        tab: 'car_performance',
+        category: 'Car Parts',
+        sku: 'SKU-BRK-KIT',
+        retail_price: '320.00',
+        sales_count: '2,100+ sold',
+        moq: 2,
+        rating: 4.8,
+        active_mode: 'b2c',
+        image_url: 'https://images.unsplash.com/photo-1600792580403-057813a3036c?auto=format&fit=crop&w=600&q=80',
+        b2b_pricings: [
+            { min_qty: 10, max_qty: 49, unit_price: '270.00' },
+            { min_qty: 50, max_qty: null, unit_price: '235.00' },
+        ],
+    },
 ];
+
+const catalogList = computed(() => {
+    if (props.products && props.products.length > 0) {
+        return props.products;
+    }
+    return defaultCatalog;
+});
 
 const filteredProducts = computed(() => {
     if (activeTab.value === 'you_might_like') {
-        return allProducts;
+        return catalogList.value;
     }
-    return allProducts.filter((p) => p.tab === activeTab.value);
+    return catalogList.value.filter((p) => p.tab === activeTab.value || p.category?.toLowerCase().includes(activeTab.value.replace('_', ' ')));
 });
 </script>
 
@@ -158,11 +212,11 @@ const filteredProducts = computed(() => {
             </div>
 
             <span class="text-xs text-gray-400 font-medium">
-                Showing {{ filteredProducts.length }} Products • {{ appStore.mode.toUpperCase() }} Pricing
+                Showing {{ filteredProducts.length }} Products • {{ appStore.mode.toUpperCase() }} Mode Active
             </span>
         </div>
 
-        <!-- Responsive 6-Column Dense Grid (1 -> 2 -> 3 -> 4 -> 6) -->
+        <!-- Responsive 6-Column Dense Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
             <div
                 v-for="product in filteredProducts"
@@ -176,7 +230,7 @@ const filteredProducts = computed(() => {
                             <Flame class="w-3 h-3" /> FLASH
                         </div>
                         <div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold flex items-center gap-0.5">
-                            <Star class="w-3 h-3 text-amber-400 fill-amber-400" /> {{ product.rating }}
+                            <Star class="w-3 h-3 text-amber-400 fill-amber-400" /> {{ product.rating || 4.9 }}
                         </div>
                     </div>
 
@@ -187,7 +241,7 @@ const filteredProducts = computed(() => {
                         </h3>
                         <div class="text-[10px] text-gray-400 mt-1 flex justify-between items-center">
                             <span>SKU: {{ product.sku }}</span>
-                            <span class="font-semibold text-emerald-600 dark:text-emerald-400">{{ product.sales_count }}</span>
+                            <span class="font-semibold text-emerald-600 dark:text-emerald-400">{{ product.sales_count || '1,000+ sold' }}</span>
                         </div>
 
                         <!-- Pricing Display -->
@@ -207,7 +261,7 @@ const filteredProducts = computed(() => {
                                     <div class="text-[10px] font-bold text-gray-400 flex items-center gap-1">
                                         <Tag class="w-3 h-3 text-[#ff0036]" /> Wholesale Tiers:
                                     </div>
-                                    <div v-for="(tier, tIdx) in product.b2b_pricings" :key="tIdx" class="text-[10px] flex justify-between bg-gray-50 dark:bg-gray-800 p-1 rounded">
+                                    <div v-for="(tier, tIdx) in (product.b2b_pricings || [])" :key="tIdx" class="text-[10px] flex justify-between bg-gray-50 dark:bg-gray-800 p-1 rounded">
                                         <span>≥ {{ tier.min_qty }} units</span>
                                         <span class="font-bold text-[#ff0036]">${{ tier.unit_price }}</span>
                                     </div>

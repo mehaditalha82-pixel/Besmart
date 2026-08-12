@@ -179,7 +179,7 @@ function selectHotTag(tag) {
 
                     <div class="flex flex-col">
                         <div class="text-xs font-bold text-gray-900 dark:text-white flex items-center gap-1">
-                            天天领金币红包
+                            Daily Gold Coin Bonus
                             <span class="px-1.5 py-0.2 rounded bg-red-100 text-[#ff0036] text-[10px] font-extrabold">
                                 +50 Coins
                             </span>
