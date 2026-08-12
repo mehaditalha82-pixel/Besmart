@@ -451,7 +451,7 @@ function submitRfq() {
         <!-- Footer -->
         <footer class="mt-16 border-t border-gray-200 dark:border-gray-800 py-8 bg-white dark:bg-gray-900 text-center text-xs text-gray-500">
             <div class="max-w-7xl mx-auto px-4">
-                <p>Taobao Enterprise Platform Architecture • Phase 10 Solar Solutions Hub Active</p>
+                <p>Besmart Enterprise Platform Architecture • Phase 10 Solar Solutions Hub Active</p>
             </div>
         </footer>
     </div>

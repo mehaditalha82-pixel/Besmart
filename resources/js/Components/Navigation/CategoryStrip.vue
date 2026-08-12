@@ -16,7 +16,7 @@ import {
 const appStore = useAppStore();
 
 const navItems = [
-    { name: 'Taobao Live', icon: Tv, badge: 'LIVE', color: '#ff0036' },
+    { name: 'Besmart Live', icon: Tv, badge: 'LIVE', color: '#ff0036' },
     { name: 'Enterprise Purchase', icon: Building2, badge: 'B2B', color: '#ff5000' },
     { name: 'Tmall Supermarket', icon: Store, badge: 'Tmall', color: '#ff0036' },
     { name: 'National Subsidies', icon: Ticket, badge: '7.7折', color: '#ff9000' },

@@ -162,7 +162,7 @@ function selectRegion(region) {
 
                     <a href="#" class="hover:text-[#ff5000] transition flex items-center gap-1">
                         <User class="w-3.5 h-3.5 opacity-70" />
-                        <span>My Taobao</span>
+                        <span>My Besmart</span>
                     </a>
 
                     <Link href="/checkout" class="hover:text-[#ff5000] transition flex items-center gap-1 relative font-semibold">

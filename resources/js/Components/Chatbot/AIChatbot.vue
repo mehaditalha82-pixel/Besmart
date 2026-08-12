@@ -117,7 +117,7 @@ function handleSend(textToSend = null) {
                     </div>
                     <div>
                         <div class="font-bold text-sm text-gray-900 dark:text-white flex items-center gap-1.5">
-                            Taobao AI Assistant
+                            Besmart AI Assistant
                         </div>
                         <div class="text-xs text-gray-500 flex items-center gap-1">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Online • {{ appStore.mode.toUpperCase() }} Mode Active

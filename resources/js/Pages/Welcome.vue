@@ -175,7 +175,7 @@ const sampleB2bProduct = computed(() => {
         </section>
 
         <!-- Phase 9 Responsive 6-Column Product Feed Grid -->
-        <section class="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <section id="catalog-feed" class="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div class="flex items-center justify-between">
                 <h2 class="text-2xl font-black tracking-tight text-gray-900 dark:text-white flex items-center gap-2">
                     <TrendingUp class="w-6 h-6 text-[#ff0036]" />
@@ -208,7 +208,7 @@ const sampleB2bProduct = computed(() => {
         <!-- Footer -->
         <footer class="mt-16 border-t border-gray-200 dark:border-gray-800 py-8 bg-white dark:bg-gray-900 text-center text-xs text-gray-500">
             <div class="max-w-7xl mx-auto px-4">
-                <p>Taobao Enterprise Platform Architecture • Phase 14 B2B Engine Active</p>
+                <p>Besmart Enterprise Platform Architecture • Phase 14 B2B Engine Active</p>
             </div>
         </footer>
     </div>

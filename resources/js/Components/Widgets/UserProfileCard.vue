@@ -44,7 +44,7 @@ const quickActions = [
             <div class="flex-1 min-w-0">
                 <div class="text-xs text-gray-400 font-medium">Hi! Welcome to</div>
                 <div class="font-extrabold text-sm text-gray-900 dark:text-white truncate flex items-center gap-1">
-                    {{ authUser ? authUser.name : 'Taobao Enterprise' }}
+                    {{ authUser ? authUser.name : 'Besmart Enterprise' }}
                     <ShieldCheck class="w-4 h-4 text-[#ff5000]" />
                 </div>
                 <div class="text-[10px] text-gray-500 font-semibold mt-0.5">

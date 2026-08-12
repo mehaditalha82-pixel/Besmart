@@ -76,10 +76,10 @@ function selectHotTag(tag) {
                 <div class="flex flex-col">
                     <div class="flex items-baseline gap-1">
                         <span class="text-2xl font-black tracking-tight text-[#ff5000] dark:text-[#ff5000] font-sans">
-                            淘宝
+                            Besmart
                         </span>
                         <span class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            Taobao<span class="text-xs text-gray-400 font-normal">.com</span>
+                            Besmart<span class="text-xs text-gray-400 font-normal">.com</span>
                         </span>
                     </div>
                     <span class="text-[10px] text-gray-400 font-semibold tracking-wider uppercase">

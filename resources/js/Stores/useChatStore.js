@@ -8,7 +8,7 @@ export const useChatStore = defineStore('chat', () => {
     const initialMessage = {
         id: 'msg-init',
         sender: 'assistant',
-        text: 'Hello! I am your Taobao Enterprise AI Concierge. How can I assist with your B2C retail orders or B2B bulk wholesale pricing today?',
+        text: 'Hello! I am your Besmart Enterprise AI Concierge. How can I assist with your B2C retail orders or B2B bulk wholesale pricing today?',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         suggestions: ['Wholesale MOQ tiers', 'Active Flash Sales', 'Switch to B2B Mode', 'Shipping Lead Times'],
     };

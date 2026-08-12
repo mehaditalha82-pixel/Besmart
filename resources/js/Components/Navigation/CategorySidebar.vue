@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import { router } from '@inertiajs/vue3';
 import { useAppStore } from '@/stores/useAppStore';
 import {
     Car,
@@ -24,6 +25,7 @@ const categories = [
         icon: Car,
         count: '12,400+ items',
         color: '#3b82f6',
+        route: '/',
         subcategories: [
             {
                 title: 'Performance & Engine',
@@ -46,6 +48,7 @@ const categories = [
         icon: Sparkles,
         count: '8,200+ items',
         color: '#ec4899',
+        route: '/',
         subcategories: [
             {
                 title: 'Skincare Solutions',
@@ -68,6 +71,7 @@ const categories = [
         icon: Cpu,
         count: '45,000+ items',
         color: '#8b5cf6',
+        route: '/',
         subcategories: [
             {
                 title: 'Microprocessors & Computing',
@@ -90,6 +94,7 @@ const categories = [
         icon: Zap,
         count: '3,800+ items',
         color: '#10b981',
+        route: '/solar-hub',
         subcategories: [
             {
                 title: 'Solar & Inverters',
@@ -115,6 +120,29 @@ function handleMouseEnter(index) {
 function handleMouseLeave() {
     activeCategoryIndex.value = null;
 }
+
+function selectCategory(cat, index) {
+    activeCategoryIndex.value = activeCategoryIndex.value === index ? null : index;
+    if (cat.route === '/solar-hub') {
+        router.visit('/solar-hub');
+    } else {
+        const gridEl = document.getElementById('catalog-feed');
+        if (gridEl) {
+            gridEl.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+}
+
+function navigateSubitem(item) {
+    if (item.toLowerCase().includes('solar') || item.toLowerCase().includes('inverter') || item.toLowerCase().includes('ev')) {
+        router.visit('/solar-hub');
+    } else {
+        const gridEl = document.getElementById('catalog-feed');
+        if (gridEl) {
+            gridEl.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+}
 </script>
 
 <template>
@@ -122,17 +150,18 @@ function handleMouseLeave() {
         <!-- Main Category List Card -->
         <div class="glass-card rounded-2xl p-2 border border-gray-200 dark:border-gray-800 shadow-lg bg-white dark:bg-gray-900">
             <div class="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center justify-between border-b border-gray-100 dark:border-gray-800">
-                <span>Industry Sectors</span>
+                <span>Besmart Industry Sectors</span>
                 <span class="text-[10px] text-[#ff5000] font-extrabold">{{ appStore.mode.toUpperCase() }} MODE</span>
             </div>
 
             <div class="mt-1 space-y-1">
-                <div
+                <button
                     v-for="(cat, idx) in categories"
                     :key="cat.id"
                     @mouseenter="handleMouseEnter(idx)"
+                    @click="selectCategory(cat, idx)"
                     :class="[
-                        'p-3 rounded-xl transition cursor-pointer flex items-center justify-between group',
+                        'w-full text-left p-3 rounded-xl transition cursor-pointer flex items-center justify-between group',
                         activeCategoryIndex === idx
                             ? 'bg-orange-50 dark:bg-gray-800 border-l-4 border-[#ff5000]'
                             : 'hover:bg-gray-50 dark:hover:bg-gray-800/60'
@@ -156,7 +185,7 @@ function handleMouseLeave() {
                     </div>
 
                     <ChevronRight class="w-4 h-4 text-gray-400 group-hover:text-[#ff5000] group-hover:translate-x-1 transition" />
-                </div>
+                </button>
             </div>
         </div>
 
@@ -196,14 +225,14 @@ function handleMouseLeave() {
                             <ArrowUpRight class="w-3 h-3 opacity-40" />
                         </div>
                         <div class="flex flex-wrap gap-1.5">
-                            <a
+                            <button
                                 v-for="(item, iIdx) in group.items"
                                 :key="iIdx"
-                                href="#"
-                                class="px-2.5 py-1 rounded-lg text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-orange-500 hover:text-white transition font-medium"
+                                @click.stop="navigateSubitem(item)"
+                                class="px-2.5 py-1 rounded-lg text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-[#ff5000] hover:text-white transition font-medium text-left"
                             >
                                 {{ item }}
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -211,7 +240,7 @@ function handleMouseLeave() {
                 <!-- Featured Brands Strip -->
                 <div class="mt-5 pt-3 border-t border-gray-200 dark:border-gray-800">
                     <div class="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2">
-                        Top Industry Brands:
+                        Top Besmart Partner Brands:
                     </div>
                     <div class="flex items-center gap-2 flex-wrap">
                         <span
