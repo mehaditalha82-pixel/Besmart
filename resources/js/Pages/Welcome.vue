@@ -5,6 +5,7 @@ import { useAppStore } from '@/stores/useAppStore';
 import { useCartStore } from '@/stores/useCartStore';
 import { useChatStore } from '@/stores/useChatStore';
 import TopUtilityBar from '@/Components/Header/TopUtilityBar.vue';
+import MainHeader from '@/Components/Header/MainHeader.vue';
 import AiAssistantDrawer from '@/Components/AiAssistantDrawer.vue';
 import {
     ShoppingBag,
@@ -146,54 +147,11 @@ const demoProducts = computed(() => {
         <!-- Phase 4 Top Utility Bar -->
         <TopUtilityBar />
 
-        <!-- Navigation Bar -->
-        <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border-b border-gray-200 dark:border-gray-800 shadow-sm">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                <!-- Brand Logo -->
-                <div class="flex items-center gap-3">
-                    <div
-                        class="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-lg transition-all"
-                        :style="{ background: appStore.activeBrandColor }"
-                    >
-                        <ShoppingBag class="w-6 h-6" />
-                    </div>
-                    <div>
-                        <span class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            TAOBAO<span :style="{ color: appStore.activeBrandColor }">ENTERPRISE</span>
-                        </span>
-                        <span class="hidden sm:inline-block ml-2 px-2 py-0.5 text-xs font-semibold rounded-full bg-red-100 text-[#ff0036] dark:bg-red-950/60 dark:text-red-400">
-                            Phase 4 Header Active
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Actions: Cart & Dark Mode -->
-                <div class="flex items-center gap-3">
-                    <button
-                        @click="toggleDarkMode"
-                        class="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-                        aria-label="Toggle dark mode"
-                    >
-                        <Sun v-if="isDarkMode" class="w-5 h-5 text-amber-400" />
-                        <Moon v-else class="w-5 h-5" />
-                    </button>
-
-                    <!-- Cart Summary Button -->
-                    <div class="relative">
-                        <div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                            <ShoppingCart class="w-5 h-5" :style="{ color: appStore.activeBrandColor }" />
-                            <div class="flex flex-col items-start leading-tight">
-                                <span class="text-xs font-bold">{{ cartStore.totalCount }} items</span>
-                                <span class="text-[10px] text-gray-500 font-medium">${{ cartStore.cartTotal.toFixed(2) }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <!-- Phase 5 Main Header Search Module -->
+        <MainHeader />
 
         <!-- Hero Section -->
-        <section class="relative overflow-hidden pt-12 pb-16 bg-gradient-to-br from-orange-50 via-white to-red-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 border-b border-gray-200 dark:border-gray-800">
+        <section class="relative overflow-hidden pt-10 pb-14 bg-gradient-to-br from-orange-50 via-white to-red-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 border-b border-gray-200 dark:border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
                     <div class="lg:col-span-7">
@@ -202,7 +160,7 @@ const demoProducts = computed(() => {
                             :class="appStore.isB2C ? 'bg-orange-100 text-[#ff5000] border-orange-200' : 'bg-red-100 text-[#ff0036] border-red-200'"
                         >
                             <Flame class="w-4 h-4 animate-pulse text-[#ff0036]" />
-                            Phase 4 Header & Utility Bar Active
+                            Phase 5 Main Header Search Module Active
                         </div>
                         <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-tight">
                             Taobao Enterprise <br/>
@@ -211,7 +169,7 @@ const demoProducts = computed(() => {
                             </span>
                         </h1>
                         <p class="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-                            Includes <code class="font-mono text-sm px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-800">TopUtilityBar</code> featuring 狂暑季 7.7折 Flash Promo, region switcher, mode pill toggle, and complete utility links.
+                            Includes <code class="font-mono text-sm px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-800">MainHeader</code> featuring high-density search filter (Tmall / Taobao / Shops), camera visual search button, live hot search keywords, and <code class="font-mono text-sm px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-800">天天领金币红包</code> daily rewards card widget.
                         </p>
                     </div>
 
@@ -362,7 +320,7 @@ const demoProducts = computed(() => {
         <!-- Footer -->
         <footer class="mt-16 border-t border-gray-200 dark:border-gray-800 py-8 bg-white dark:bg-gray-900 text-center text-xs text-gray-500">
             <div class="max-w-7xl mx-auto px-4">
-                <p>Taobao Enterprise Platform Architecture • Phase 4 UI Utility Header Active</p>
+                <p>Taobao Enterprise Platform Architecture • Phase 5 Main Header Search Module Active</p>
             </div>
         </footer>
     </div>
