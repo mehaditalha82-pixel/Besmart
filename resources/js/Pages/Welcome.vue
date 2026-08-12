@@ -8,6 +8,7 @@ import TopUtilityBar from '@/Components/Header/TopUtilityBar.vue';
 import MainHeader from '@/Components/Header/MainHeader.vue';
 import CategoryStrip from '@/Components/Navigation/CategoryStrip.vue';
 import CategorySidebar from '@/Components/Navigation/CategorySidebar.vue';
+import HeroDashboard from '@/Components/Home/HeroDashboard.vue';
 import AiAssistantDrawer from '@/Components/AiAssistantDrawer.vue';
 import {
     ShoppingBag,
@@ -155,74 +156,43 @@ const demoProducts = computed(() => {
         <!-- Phase 6 Horizontal Category Strip Navbar -->
         <CategoryStrip />
 
-        <!-- Main Hero Section with Category Sidebar -->
-        <section class="relative overflow-hidden pt-8 pb-14 bg-gradient-to-br from-orange-50 via-white to-red-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 border-b border-gray-200 dark:border-gray-800">
+        <!-- Main Hero Section with Category Sidebar & Phase 7 Hero Dashboard -->
+        <section class="relative overflow-hidden pt-6 pb-12 bg-gradient-to-br from-orange-50 via-white to-red-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 border-b border-gray-200 dark:border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                     <!-- Phase 6 Left Category Sidebar -->
                     <div class="lg:col-span-4 xl:col-span-3 z-30">
                         <CategorySidebar />
                     </div>
 
-                    <!-- Right Banner & Hero Content -->
-                    <div class="lg:col-span-8 xl:col-span-9 space-y-6">
-                        <div
-                            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all"
-                            :class="appStore.isB2C ? 'bg-orange-100 text-[#ff5000] border-orange-200' : 'bg-red-100 text-[#ff0036] border-red-200'"
-                        >
-                            <Flame class="w-4 h-4 animate-pulse text-[#ff0036]" />
-                            Phase 6 Category Navigation Active
-                        </div>
-
-                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-tight">
-                            Taobao Industry Hub <br/>
-                            <span :style="{ color: appStore.activeBrandColor }">
-                                {{ appStore.isB2C ? 'B2C Retail Catalog' : 'B2B Enterprise Direct' }}
-                            </span>
-                        </h1>
-
-                        <!-- Mode Indicator Card -->
-                        <div class="glass-card rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-800">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-xs font-bold uppercase tracking-wider text-gray-500">Live Cart State</span>
-                                <button @click="cartStore.clearCart" class="text-xs text-red-500 hover:underline">Clear Cart</button>
-                            </div>
-
-                            <div v-if="cartStore.cartItems.length === 0" class="text-xs text-gray-500 text-center py-4">
-                                Cart is empty. Select products from the catalog below!
-                            </div>
-                            <div v-else class="space-y-3 max-h-48 overflow-y-auto pr-1">
-                                <div
-                                    v-for="item in cartStore.cartItems"
-                                    :key="`${item.id}-${item.active_mode}`"
-                                    class="flex items-center justify-between p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-xs"
-                                >
-                                    <div class="flex-1 pr-2 truncate">
-                                        <div class="font-bold text-gray-900 dark:text-white truncate">{{ item.title }}</div>
-                                        <div class="text-[10px] text-gray-400">
-                                            Mode: {{ item.active_mode.toUpperCase() }} • Unit: ${{ cartStore.getItemEffectivePrice(item).toFixed(2) }}
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center gap-1.5">
-                                        <button @click="cartStore.updateQuantity(item.id, item.quantity - 1, item.active_mode)" class="p-1 rounded bg-gray-200 dark:bg-gray-700">
-                                            <Minus class="w-3 h-3" />
-                                        </button>
-                                        <span class="font-bold px-1">{{ item.quantity }}</span>
-                                        <button @click="cartStore.updateQuantity(item.id, item.quantity + 1, item.active_mode)" class="p-1 rounded bg-gray-200 dark:bg-gray-700">
-                                            <Plus class="w-3 h-3" />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center text-sm">
-                                <span class="font-bold">Total (Computed):</span>
-                                <span class="text-lg font-extrabold" :style="{ color: appStore.activeBrandColor }">
-                                    ${{ cartStore.cartTotal.toFixed(2) }}
-                                </span>
-                            </div>
-                        </div>
+                    <!-- Phase 7 Hero Dashboard & Subsidies / Flash Deals -->
+                    <div class="lg:col-span-8 xl:col-span-9">
+                        <HeroDashboard />
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Taxonomy Categories -->
+        <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                <Layers class="w-5 h-5" :style="{ color: appStore.activeBrandColor }" />
+                Taxonomy Categories
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div
+                    v-for="cat in demoCategories"
+                    :key="cat.id"
+                    class="glass-card rounded-2xl p-5 hover:border-[#ff5000] transition group cursor-pointer"
+                >
+                    <div
+                        class="w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform"
+                        :class="appStore.isB2C ? 'bg-orange-100 text-[#ff5000]' : 'bg-red-100 text-[#ff0036]'"
+                    >
+                        <component :is="categoryIcons[cat.name] || Layers" class="w-6 h-6" />
+                    </div>
+                    <div class="font-bold text-gray-900 dark:text-white">{{ cat.name }}</div>
+                    <div class="text-xs text-gray-500 mt-1">{{ cat.count || 'Active Taxonomy' }}</div>
                 </div>
             </div>
         </section>
@@ -303,7 +273,7 @@ const demoProducts = computed(() => {
         <!-- Footer -->
         <footer class="mt-16 border-t border-gray-200 dark:border-gray-800 py-8 bg-white dark:bg-gray-900 text-center text-xs text-gray-500">
             <div class="max-w-7xl mx-auto px-4">
-                <p>Taobao Enterprise Platform Architecture • Phase 6 Category Navigation Active</p>
+                <p>Taobao Enterprise Platform Architecture • Phase 7 Hero & Flash Deals Active</p>
             </div>
         </footer>
     </div>
