@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RfqController;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SalesHistory;
@@ -36,3 +37,5 @@ Route::get('/admin/analytics', function () {
         'salesTrendData' => $salesTrends,
     ]);
 })->name('admin.analytics');
+
+Route::post('/rfq', [RfqController::class, 'store'])->name('rfq.store');
