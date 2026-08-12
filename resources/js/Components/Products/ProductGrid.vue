@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { useAppStore } from '@/stores/useAppStore';
 import { useCartStore } from '@/stores/useCartStore';
+import ProductDetailModal from '@/Components/Products/ProductDetailModal.vue';
 import {
     Sparkles,
     Cpu,
@@ -13,6 +14,7 @@ import {
     Tag,
     Star,
     Layers,
+    Eye,
 } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -26,6 +28,13 @@ const appStore = useAppStore();
 const cartStore = useCartStore();
 
 const activeTab = ref('you_might_like');
+const selectedProduct = ref(null);
+const isModalOpen = ref(false);
+
+function openProductModal(product) {
+    selectedProduct.value = product;
+    isModalOpen.value = true;
+}
 
 const tabs = [
     { id: 'you_might_like', name: 'You might like', icon: Sparkles },
@@ -221,7 +230,8 @@ const filteredProducts = computed(() => {
             <div
                 v-for="product in filteredProducts"
                 :key="product.id"
-                class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm hover:shadow-xl transition flex flex-col justify-between group"
+                @click="openProductModal(product)"
+                class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm hover:shadow-xl transition flex flex-col justify-between group cursor-pointer"
             >
                 <div>
                     <div class="relative h-40 bg-gray-100 dark:bg-gray-800 overflow-hidden">
@@ -231,6 +241,12 @@ const filteredProducts = computed(() => {
                         </div>
                         <div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold flex items-center gap-0.5">
                             <Star class="w-3 h-3 text-amber-400 fill-amber-400" /> {{ product.rating || 4.9 }}
+                        </div>
+                        <!-- Quick View Overlay Badge -->
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                            <span class="px-3 py-1.5 rounded-full bg-white/90 text-gray-900 font-extrabold text-xs shadow-lg flex items-center gap-1">
+                                <Eye class="w-3.5 h-3.5 text-[#ff5000]" /> Quick View
+                            </span>
                         </div>
                     </div>
 
@@ -273,7 +289,7 @@ const filteredProducts = computed(() => {
 
                 <div class="p-3 pt-0">
                     <button
-                        @click="cartStore.addToCart(product, product.moq || 1, appStore.mode)"
+                        @click.stop="cartStore.addToCart(product, product.moq || 1, appStore.mode)"
                         class="w-full py-1.5 px-3 rounded-xl text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md"
                         :style="{ background: appStore.activeBrandColor }"
                     >
@@ -283,5 +299,13 @@ const filteredProducts = computed(() => {
                 </div>
             </div>
         </div>
+
+        <!-- Product Detail Quick View Modal -->
+        <ProductDetailModal
+            v-if="selectedProduct"
+            :product="selectedProduct"
+            :is-open="isModalOpen"
+            @close="isModalOpen = false"
+        />
     </div>
 </template>
