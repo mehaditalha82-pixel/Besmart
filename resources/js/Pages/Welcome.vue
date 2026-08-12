@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import { useAppStore } from '@/stores/useAppStore';
 import { useCartStore } from '@/stores/useCartStore';
 import { useChatStore } from '@/stores/useChatStore';
+import TopUtilityBar from '@/Components/Header/TopUtilityBar.vue';
 import AiAssistantDrawer from '@/Components/AiAssistantDrawer.vue';
 import {
     ShoppingBag,
@@ -142,7 +143,10 @@ const demoProducts = computed(() => {
     <Head title="Enterprise Multi-Tenant E-Commerce Platform" />
 
     <div class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
-        <!-- Top Navigation Header -->
+        <!-- Phase 4 Top Utility Bar -->
+        <TopUtilityBar />
+
+        <!-- Navigation Bar -->
         <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border-b border-gray-200 dark:border-gray-800 shadow-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                 <!-- Brand Logo -->
@@ -157,38 +161,10 @@ const demoProducts = computed(() => {
                         <span class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                             TAOBAO<span :style="{ color: appStore.activeBrandColor }">ENTERPRISE</span>
                         </span>
-                        <span class="hidden sm:inline-block ml-2 px-2 py-0.5 text-xs font-semibold rounded-full bg-orange-100 text-[#ff5000] dark:bg-orange-950/60 dark:text-orange-400">
-                            Pinia Stores Active
+                        <span class="hidden sm:inline-block ml-2 px-2 py-0.5 text-xs font-semibold rounded-full bg-red-100 text-[#ff0036] dark:bg-red-950/60 dark:text-red-400">
+                            Phase 4 Header Active
                         </span>
                     </div>
-                </div>
-
-                <!-- B2C / B2B Mode Switcher -->
-                <div class="flex items-center gap-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700">
-                    <button
-                        @click="appStore.toggleMode('b2c')"
-                        :class="[
-                            'px-4 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5',
-                            appStore.isB2C
-                                ? 'bg-[#ff5000] text-white shadow-md shadow-orange-500/30'
-                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                        ]"
-                    >
-                        <Store class="w-3.5 h-3.5" />
-                        B2C Retail
-                    </button>
-                    <button
-                        @click="appStore.toggleMode('b2b')"
-                        :class="[
-                            'px-4 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5',
-                            appStore.isB2B
-                                ? 'bg-[#ff0036] text-white shadow-md shadow-red-500/30'
-                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                        ]"
-                    >
-                        <Building2 class="w-3.5 h-3.5" />
-                        B2B Enterprise
-                    </button>
                 </div>
 
                 <!-- Actions: Cart & Dark Mode -->
@@ -225,17 +201,17 @@ const demoProducts = computed(() => {
                             class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold mb-4 transition-all"
                             :class="appStore.isB2C ? 'bg-orange-100 text-[#ff5000] border-orange-200' : 'bg-red-100 text-[#ff0036] border-red-200'"
                         >
-                            <Flame class="w-4 h-4 animate-pulse" />
-                            Phase 3 Pinia State Management Active
+                            <Flame class="w-4 h-4 animate-pulse text-[#ff0036]" />
+                            Phase 4 Header & Utility Bar Active
                         </div>
                         <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-tight">
-                            Reactive Pinia Stores <br/>
+                            Taobao Enterprise <br/>
                             <span :style="{ color: appStore.activeBrandColor }">
                                 {{ appStore.isB2C ? 'B2C Consumer Mode' : 'B2B Wholesale Mode' }}
                             </span>
                         </h1>
                         <p class="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-                            Features state management across <code class="font-mono text-sm px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-800">useAppStore</code>, <code class="font-mono text-sm px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-800">useCartStore</code> with dynamic tier pricing calculations, and <code class="font-mono text-sm px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-800">useChatStore</code> for floating AI drawer navigation.
+                            Includes <code class="font-mono text-sm px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-800">TopUtilityBar</code> featuring 狂暑季 7.7折 Flash Promo, region switcher, mode pill toggle, and complete utility links.
                         </p>
                     </div>
 
@@ -386,7 +362,7 @@ const demoProducts = computed(() => {
         <!-- Footer -->
         <footer class="mt-16 border-t border-gray-200 dark:border-gray-800 py-8 bg-white dark:bg-gray-900 text-center text-xs text-gray-500">
             <div class="max-w-7xl mx-auto px-4">
-                <p>Taobao Enterprise Platform Architecture • Phase 3 Global Pinia Stores Loaded</p>
+                <p>Taobao Enterprise Platform Architecture • Phase 4 UI Utility Header Active</p>
             </div>
         </footer>
     </div>
