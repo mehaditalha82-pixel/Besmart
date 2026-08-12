@@ -15,7 +15,7 @@ import FrequentlyBoughtTogether from '@/Components/Products/FrequentlyBoughtToge
 import LivePurchaseToast from '@/Components/Conversion/LivePurchaseToast.vue';
 import SpinWheelModal from '@/Components/Conversion/SpinWheelModal.vue';
 import FloatingDock from '@/Components/Navigation/FloatingDock.vue';
-import AiAssistantDrawer from '@/Components/AiAssistantDrawer.vue';
+import AIChatbot from '@/Components/Chatbot/AIChatbot.vue';
 import {
     ShoppingBag,
     ShoppingCart,
@@ -124,8 +124,8 @@ function toggleDarkMode() {
         <!-- Phase 8 Floating Vertical Toolbar Dock -->
         <FloatingDock />
 
-        <!-- Floating AI Drawer Component -->
-        <AiAssistantDrawer />
+        <!-- Phase 12 Floating AI Chatbot Component -->
+        <AIChatbot />
 
         <!-- Footer -->
         <footer class="mt-16 border-t border-gray-200 dark:border-gray-800 py-8 bg-white dark:bg-gray-900 text-center text-xs text-gray-500">

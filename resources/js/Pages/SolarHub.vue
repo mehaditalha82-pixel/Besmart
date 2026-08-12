@@ -7,7 +7,7 @@ import TopUtilityBar from '@/Components/Header/TopUtilityBar.vue';
 import MainHeader from '@/Components/Header/MainHeader.vue';
 import CategoryStrip from '@/Components/Navigation/CategoryStrip.vue';
 import FloatingDock from '@/Components/Navigation/FloatingDock.vue';
-import AiAssistantDrawer from '@/Components/AiAssistantDrawer.vue';
+import AIChatbot from '@/Components/Chatbot/AIChatbot.vue';
 import {
     Sun,
     Zap,
@@ -446,7 +446,7 @@ function submitRfq() {
 
         <!-- Floating Auxiliary Elements -->
         <FloatingDock />
-        <AiAssistantDrawer />
+        <AIChatbot />
 
         <!-- Footer -->
         <footer class="mt-16 border-t border-gray-200 dark:border-gray-800 py-8 bg-white dark:bg-gray-900 text-center text-xs text-gray-500">
