@@ -17,6 +17,9 @@ import {
     Plus,
     Minus,
     AlertCircle,
+    Sparkles,
+    PackageCheck,
+    Gift,
 } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -36,6 +39,7 @@ const appStore = useAppStore();
 const cartStore = useCartStore();
 
 const selectedQuantity = ref(1);
+const isBundleAdded = ref(false);
 
 // Sync quantity with MOQ when product opens
 const moqLimit = computed(() => (props.product ? props.product.moq || 1 : 1));
@@ -64,6 +68,58 @@ const calculatedSubtotal = computed(() => {
     return (parseFloat(effectivePrice.value) * selectedQuantity.value).toFixed(2);
 });
 
+// Dynamic Complementary Products Bundle Recommendation Engine
+const suggestedBundle = computed(() => {
+    if (!props.product) return null;
+    const cat = props.product.category ? props.product.category.toLowerCase() : '';
+
+    if (cat.includes('car')) {
+        return {
+            title: 'Complete Turbo Performance Bundle',
+            items: [
+                { id: props.product.id, title: props.product.title, price: parseFloat(effectivePrice.value), image_url: props.product.image_url, moq: props.product.moq || 1 },
+                { id: 901, title: 'High-Flow Fuel Injector Set 1000cc', price: 245.00, image_url: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=600&q=80', moq: 4 },
+                { id: 902, title: 'Brake Rotor & Ceramic Pad Kit', price: 320.00, image_url: 'https://images.unsplash.com/photo-1600792580403-057813a3036c?auto=format&fit=crop&w=600&q=80', moq: 2 },
+            ],
+        };
+    } else if (cat.includes('green') || cat.includes('solar')) {
+        return {
+            title: 'Complete Solar Energy Storage System Bundle',
+            items: [
+                { id: props.product.id, title: props.product.title, price: parseFloat(effectivePrice.value), image_url: props.product.image_url, moq: props.product.moq || 1 },
+                { id: 903, title: 'Monocrystalline Solar Panel 550W', price: 215.00, image_url: 'https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=600&q=80', moq: 2 },
+                { id: 904, title: '48V 100Ah Lithium Battery Pack', price: 899.00, image_url: 'https://images.unsplash.com/photo-1558441719-6779b6869537?auto=format&fit=crop&w=600&q=80', moq: 1 },
+            ],
+        };
+    } else if (cat.includes('cosmetic')) {
+        return {
+            title: 'Complete Botanical Hydration Ritual Bundle',
+            items: [
+                { id: props.product.id, title: props.product.title, price: parseFloat(effectivePrice.value), image_url: props.product.image_url, moq: props.product.moq || 1 },
+                { id: 905, title: 'Organic Cleansing Gel 200ml', price: 32.00, image_url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80', moq: 1 },
+                { id: 906, title: 'Daily UV Shield Sunscreen SPF50+', price: 45.00, image_url: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80', moq: 1 },
+            ],
+        };
+    } else {
+        return {
+            title: 'Complete Smart IoT Hardware Bundle',
+            items: [
+                { id: props.product.id, title: props.product.title, price: parseFloat(effectivePrice.value), image_url: props.product.image_url, moq: props.product.moq || 1 },
+                { id: 907, title: 'Smart IoT Sensor Array Module', price: 45.00, image_url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80', moq: 2 },
+                { id: 908, title: 'DC-DC Voltage Regulator Shield', price: 38.00, image_url: 'https://images.unsplash.com/photo-1550041473-d296a3a8a15a?auto=format&fit=crop&w=600&q=80', moq: 2 },
+            ],
+        };
+    }
+});
+
+const bundleOriginalTotal = computed(() => {
+    if (!suggestedBundle.value) return 0;
+    return suggestedBundle.value.items.reduce((sum, item) => sum + item.price, 0);
+});
+
+const bundleSavings = computed(() => (bundleOriginalTotal.value * 0.15).toFixed(2));
+const bundleDiscountedPrice = computed(() => (bundleOriginalTotal.value * 0.85).toFixed(2));
+
 function incrementQty() {
     selectedQuantity.value++;
 }
@@ -80,7 +136,30 @@ function handleAddToCart() {
     emit('close');
 }
 
-// Sample JSON specifications
+function addBundleToCart() {
+    if (!suggestedBundle.value) return;
+    suggestedBundle.value.items.forEach((item) => {
+        cartStore.addToCart(
+            {
+                id: item.id,
+                title: item.title,
+                retail_price: item.price.toFixed(2),
+                moq: item.moq || 1,
+                image_url: item.image_url,
+                category: props.product?.category || 'General',
+            },
+            item.moq || 1,
+            appStore.mode
+        );
+    });
+    isBundleAdded.value = true;
+    setTimeout(() => {
+        isBundleAdded.value = false;
+        emit('close');
+    }, 2000);
+}
+
+// Specifications
 const sampleSpecs = computed(() => [
     { key: 'Brand / Manufacturer', value: 'Besmart Certified Factory' },
     { key: 'Category Sector', value: props.product?.category || 'General' },
@@ -101,12 +180,13 @@ const sampleSpecs = computed(() => [
         leave-to-class="opacity-0 scale-95"
     >
         <div v-if="isOpen && product" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md font-sans">
-            <div class="relative w-full max-w-3xl bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+            <div class="relative w-full max-w-4xl bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
                 <!-- Close Button -->
                 <button @click="emit('close')" class="absolute top-5 right-5 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-600 transition z-10">
                     <X class="w-6 h-6" />
                 </button>
 
+                <!-- Product Summary Header Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
                     <!-- Left: High-Res Image Gallery -->
                     <div class="md:col-span-5 space-y-3">
@@ -237,7 +317,7 @@ const sampleSpecs = computed(() => [
                                     ]"
                                 >
                                     <ShoppingCart class="w-4 h-4" />
-                                    Add to Cart
+                                    Add Item to Cart
                                 </button>
 
                                 <button
@@ -249,20 +329,79 @@ const sampleSpecs = computed(() => [
                                 </button>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <!-- Product Specifications Table -->
-                        <div class="pt-4 border-t border-gray-100 dark:border-gray-800 space-y-2">
-                            <div class="text-xs font-bold text-gray-700 dark:text-gray-300">Technical Specifications:</div>
-                            <div class="grid grid-cols-2 gap-2 text-[11px]">
-                                <div
-                                    v-for="(spec, sIdx) in sampleSpecs"
-                                    :key="sIdx"
-                                    class="p-2 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-800"
-                                >
-                                    <div class="text-[10px] text-gray-400">{{ spec.key }}</div>
-                                    <div class="font-bold text-gray-800 dark:text-gray-200 mt-0.5">{{ spec.value }}</div>
+                <!-- NEW FEATURE: SMART RECOMMENDED 3-ITEM BUNDLE CARD -->
+                <div v-if="suggestedBundle" class="mt-6 pt-6 border-t-2 border-dashed border-gray-200 dark:border-gray-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black">
+                                <Sparkles class="w-4 h-4" />
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-base text-gray-900 dark:text-white flex items-center gap-2">
+                                    {{ suggestedBundle.title }}
+                                </h3>
+                                <div class="text-xs text-gray-500">Frequently bought together with {{ product.title }}</div>
+                            </div>
+                        </div>
+
+                        <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 font-extrabold text-xs">
+                            Save ${{ bundleSavings }} (15% Bundle Discount)
+                        </span>
+                    </div>
+
+                    <!-- 3-Item Bundle Card Grid -->
+                    <div class="p-4 rounded-2xl bg-orange-50/50 dark:bg-gray-800/60 border border-orange-200 dark:border-gray-700 space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+                            <div
+                                v-for="(bItem, idx) in suggestedBundle.items"
+                                :key="idx"
+                                class="flex items-center gap-3 p-2.5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm"
+                            >
+                                <img :src="bItem.image_url" :alt="bItem.title" class="w-12 h-12 rounded-lg object-cover shrink-0" />
+                                <div class="min-w-0 flex-1">
+                                    <div class="text-[10px] font-bold text-gray-400">Item {{ idx + 1 }}</div>
+                                    <div class="text-xs font-bold text-gray-900 dark:text-white truncate">{{ bItem.title }}</div>
+                                    <div class="text-xs font-black text-[#ff5000]">${{ bItem.price.toFixed(2) }}</div>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- 1-Click Multi-Add Bundle CTA -->
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-orange-200 dark:border-gray-700">
+                            <div class="text-xs">
+                                <span class="text-gray-500 font-bold">Bundle Total: </span>
+                                <span class="text-gray-400 line-through mr-1 text-xs">${{ bundleOriginalTotal.toFixed(2) }}</span>
+                                <span class="text-lg font-black text-[#ff0036]">${{ bundleDiscountedPrice }}</span>
+                            </div>
+
+                            <button
+                                @click="addBundleToCart"
+                                :disabled="isBundleAdded"
+                                class="w-full sm:w-auto py-2.5 px-5 rounded-xl text-white font-black text-xs sm:text-sm shadow-xl transition flex items-center justify-center gap-2 transform active:scale-95"
+                                :class="isBundleAdded ? 'bg-emerald-500' : 'bg-gradient-to-r from-[#ff5000] to-[#ff0036] hover:brightness-110'"
+                            >
+                                <Check v-if="isBundleAdded" class="w-4 h-4" />
+                                <ShoppingCart v-else class="w-4 h-4" />
+                                {{ isBundleAdded ? 'Recommended 3-Item Bundle Added!' : 'Add Recommended 3-Item Bundle to Cart' }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Specifications Table -->
+                <div class="pt-4 border-t border-gray-100 dark:border-gray-800 space-y-2">
+                    <div class="text-xs font-bold text-gray-700 dark:text-gray-300">Technical Specifications:</div>
+                    <div class="grid grid-cols-2 gap-2 text-[11px]">
+                        <div
+                            v-for="(spec, sIdx) in sampleSpecs"
+                            :key="sIdx"
+                            class="p-2 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-800"
+                        >
+                            <div class="text-[10px] text-gray-400">{{ spec.key }}</div>
+                            <div class="font-bold text-gray-800 dark:text-gray-200 mt-0.5">{{ spec.value }}</div>
                         </div>
                     </div>
                 </div>
