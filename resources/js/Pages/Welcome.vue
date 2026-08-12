@@ -18,6 +18,7 @@ import LivePurchaseToast from '@/Components/Conversion/LivePurchaseToast.vue';
 import SpinWheelModal from '@/Components/Conversion/SpinWheelModal.vue';
 import FloatingDock from '@/Components/Navigation/FloatingDock.vue';
 import AIChatbot from '@/Components/Chatbot/AIChatbot.vue';
+import AuthRequiredModal from '@/Components/Auth/AuthRequiredModal.vue';
 import {
     ShoppingBag,
     ShoppingCart,
@@ -195,9 +196,10 @@ const sampleB2bProduct = computed(() => {
             @close="isRfqModalOpen = false"
         />
 
-        <!-- Phase 11 Conversion Triggers -->
+        <!-- Phase 11 Conversion Triggers & Casino Wheel -->
         <LivePurchaseToast />
         <SpinWheelModal />
+        <AuthRequiredModal />
 
         <!-- Phase 8 Floating Vertical Toolbar Dock -->
         <FloatingDock />

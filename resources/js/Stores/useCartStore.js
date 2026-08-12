@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
+import { useAppStore } from '@/stores/useAppStore';
 
 export const useCartStore = defineStore('cart', () => {
     const cartItems = ref([]);
@@ -38,20 +39,27 @@ export const useCartStore = defineStore('cart', () => {
     });
 
     function addToCart(product, quantity = 1, mode = 'b2c') {
-        const targetMoq = mode === 'b2b' && product.moq ? Math.max(quantity, product.moq) : quantity;
-        const existingIndex = cartItems.value.findIndex(
-            (item) => item.id === product.id && item.active_mode === mode
-        );
+        const appStore = useAppStore();
 
-        if (existingIndex > -1) {
-            cartItems.value[existingIndex].quantity += targetMoq;
-        } else {
-            cartItems.value.push({
-                ...product,
-                quantity: targetMoq,
-                active_mode: mode,
-            });
-        }
+        // Enforce Authentication Guard Requirement
+        const isAuthenticated = appStore.requireAuth(() => {
+            const targetMoq = mode === 'b2b' && product.moq ? Math.max(quantity, product.moq) : quantity;
+            const existingIndex = cartItems.value.findIndex(
+                (item) => item.id === product.id && item.active_mode === mode
+            );
+
+            if (existingIndex > -1) {
+                cartItems.value[existingIndex].quantity += targetMoq;
+            } else {
+                cartItems.value.push({
+                    ...product,
+                    quantity: targetMoq,
+                    active_mode: mode,
+                });
+            }
+        });
+
+        return isAuthenticated;
     }
 
     function updateQuantity(productId, quantity, mode = 'b2c') {

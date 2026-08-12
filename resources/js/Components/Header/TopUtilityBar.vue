@@ -16,6 +16,7 @@ import {
     Flame,
     ArrowRight,
     X,
+    LogOut,
 } from 'lucide-vue-next';
 
 const appStore = useAppStore();
@@ -36,6 +37,12 @@ const regions = [
 function selectRegion(region) {
     selectedRegion.value = region;
     isRegionDropdownOpen.value = false;
+}
+
+function handleAuthRequiredNav(label) {
+    appStore.requireAuth(() => {
+        alert(`Opening ${label} menu.`);
+    });
 }
 </script>
 
@@ -117,9 +124,23 @@ function selectRegion(region) {
 
                     <!-- Auth Links -->
                     <div class="flex items-center gap-2">
-                        <span class="text-gray-500">Hi, please</span>
-                        <a href="#" class="text-[#ff5000] font-bold hover:underline">log in</a>
-                        <a href="#" class="hover:text-[#ff5000] transition">Free registration</a>
+                        <template v-if="!appStore.isLoggedIn">
+                            <span class="text-gray-500">Hi, please</span>
+                            <button @click="appStore.loginAsDemoCustomer()" class="text-[#ff5000] font-bold hover:underline">
+                                log in
+                            </button>
+                            <button @click="appStore.loginAsDemoCustomer()" class="hover:text-[#ff5000] transition">
+                                Free registration
+                            </button>
+                        </template>
+                        <template v-else>
+                            <span class="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                                Welcome, {{ appStore.currentUser?.name }}
+                            </span>
+                            <button @click="appStore.logout()" class="text-red-500 font-semibold hover:underline flex items-center gap-0.5 ml-1">
+                                <LogOut class="w-3 h-3" /> Log out
+                            </button>
+                        </template>
                     </div>
 
                     <span class="text-gray-300 dark:text-gray-700 hidden sm:inline">|</span>
@@ -155,28 +176,28 @@ function selectRegion(region) {
 
                 <!-- Right Section: Navigation Links -->
                 <div class="flex items-center gap-4 flex-wrap">
-                    <a href="#" class="hover:text-[#ff5000] transition flex items-center gap-1">
+                    <button @click="handleAuthRequiredNav('Purchased Items')" class="hover:text-[#ff5000] transition flex items-center gap-1">
                         <ShoppingBag class="w-3.5 h-3.5 opacity-70" />
                         <span>Purchased Items</span>
-                    </a>
+                    </button>
 
-                    <a href="#" class="hover:text-[#ff5000] transition flex items-center gap-1">
+                    <button @click="handleAuthRequiredNav('My Besmart')" class="hover:text-[#ff5000] transition flex items-center gap-1">
                         <User class="w-3.5 h-3.5 opacity-70" />
                         <span>My Besmart</span>
-                    </a>
+                    </button>
 
                     <Link href="/checkout" class="hover:text-[#ff5000] transition flex items-center gap-1 relative font-semibold">
                         <ShoppingCart class="w-3.5 h-3.5 text-[#ff5000]" />
                         <span>Shopping Cart</span>
-                        <span class="px-1.5 py-0.2 text-[10px] font-extrabold rounded-full bg-[#ff5000] text-white ml-0.5">
+                        <span class="px-1.5 py-0.2 text-[10px] font-extrabold rounded-full bg-[#ff0036] text-white ml-0.5">
                             {{ cartStore.totalCount }}
                         </span>
                     </Link>
 
-                    <a href="#" class="hover:text-[#ff5000] transition flex items-center gap-1">
-                        <Heart class="w-3.5 h-3.5 opacity-70" />
+                    <button @click="handleAuthRequiredNav('Favorites')" class="hover:text-[#ff5000] transition flex items-center gap-1">
+                        <Heart class="w-3.5 h-3.5 opacity-70 text-red-500" />
                         <span>Favorites</span>
-                    </a>
+                    </button>
 
                     <Link href="/solar-hub" class="hover:text-[#ff5000] transition flex items-center gap-1 text-[#ff5000] font-bold">
                         <Sun class="w-3.5 h-3.5 text-amber-500 animate-spin-slow" />
