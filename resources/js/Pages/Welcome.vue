@@ -9,6 +9,8 @@ import MainHeader from '@/Components/Header/MainHeader.vue';
 import CategoryStrip from '@/Components/Navigation/CategoryStrip.vue';
 import CategorySidebar from '@/Components/Navigation/CategorySidebar.vue';
 import HeroDashboard from '@/Components/Home/HeroDashboard.vue';
+import UserProfileCard from '@/Components/Widgets/UserProfileCard.vue';
+import FloatingDock from '@/Components/Navigation/FloatingDock.vue';
 import AiAssistantDrawer from '@/Components/AiAssistantDrawer.vue';
 import {
     ShoppingBag,
@@ -156,43 +158,24 @@ const demoProducts = computed(() => {
         <!-- Phase 6 Horizontal Category Strip Navbar -->
         <CategoryStrip />
 
-        <!-- Main Hero Section with Category Sidebar & Phase 7 Hero Dashboard -->
+        <!-- Main Hero Section with Category Sidebar, Hero Dashboard & Phase 8 User Profile Card -->
         <section class="relative overflow-hidden pt-6 pb-12 bg-gradient-to-br from-orange-50 via-white to-red-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 border-b border-gray-200 dark:border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                     <!-- Phase 6 Left Category Sidebar -->
-                    <div class="lg:col-span-4 xl:col-span-3 z-30">
+                    <div class="lg:col-span-3 z-30">
                         <CategorySidebar />
                     </div>
 
                     <!-- Phase 7 Hero Dashboard & Subsidies / Flash Deals -->
-                    <div class="lg:col-span-8 xl:col-span-9">
+                    <div class="lg:col-span-6 xl:col-span-6">
                         <HeroDashboard />
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Taxonomy Categories -->
-        <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                <Layers class="w-5 h-5" :style="{ color: appStore.activeBrandColor }" />
-                Taxonomy Categories
-            </h2>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div
-                    v-for="cat in demoCategories"
-                    :key="cat.id"
-                    class="glass-card rounded-2xl p-5 hover:border-[#ff5000] transition group cursor-pointer"
-                >
-                    <div
-                        class="w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform"
-                        :class="appStore.isB2C ? 'bg-orange-100 text-[#ff5000]' : 'bg-red-100 text-[#ff0036]'"
-                    >
-                        <component :is="categoryIcons[cat.name] || Layers" class="w-6 h-6" />
+                    <!-- Phase 8 Right User Profile Card Widget -->
+                    <div class="lg:col-span-3">
+                        <UserProfileCard />
                     </div>
-                    <div class="font-bold text-gray-900 dark:text-white">{{ cat.name }}</div>
-                    <div class="text-xs text-gray-500 mt-1">{{ cat.count || 'Active Taxonomy' }}</div>
                 </div>
             </div>
         </section>
@@ -267,13 +250,16 @@ const demoProducts = computed(() => {
             </div>
         </section>
 
+        <!-- Phase 8 Floating Vertical Toolbar Dock -->
+        <FloatingDock />
+
         <!-- Floating AI Drawer Component -->
         <AiAssistantDrawer />
 
         <!-- Footer -->
         <footer class="mt-16 border-t border-gray-200 dark:border-gray-800 py-8 bg-white dark:bg-gray-900 text-center text-xs text-gray-500">
             <div class="max-w-7xl mx-auto px-4">
-                <p>Taobao Enterprise Platform Architecture • Phase 7 Hero & Flash Deals Active</p>
+                <p>Taobao Enterprise Platform Architecture • Phase 8 Widgets & Dock Active</p>
             </div>
         </footer>
     </div>
