@@ -165,13 +165,13 @@ function selectRegion(region) {
                         <span>My Taobao</span>
                     </a>
 
-                    <a href="#" class="hover:text-[#ff5000] transition flex items-center gap-1 relative font-semibold">
+                    <Link href="/checkout" class="hover:text-[#ff5000] transition flex items-center gap-1 relative font-semibold">
                         <ShoppingCart class="w-3.5 h-3.5 text-[#ff5000]" />
                         <span>Shopping Cart</span>
                         <span class="px-1.5 py-0.2 text-[10px] font-extrabold rounded-full bg-[#ff5000] text-white ml-0.5">
                             {{ cartStore.totalCount }}
                         </span>
-                    </a>
+                    </Link>
 
                     <a href="#" class="hover:text-[#ff5000] transition flex items-center gap-1">
                         <Heart class="w-3.5 h-3.5 opacity-70" />

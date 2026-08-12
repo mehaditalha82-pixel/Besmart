@@ -38,4 +38,8 @@ Route::get('/admin/analytics', function () {
     ]);
 })->name('admin.analytics');
 
+Route::get('/checkout', function () {
+    return Inertia::render('Checkout');
+})->name('checkout');
+
 Route::post('/rfq', [RfqController::class, 'store'])->name('rfq.store');
