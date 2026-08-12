@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
 import { useAppStore } from '@/stores/useAppStore';
 import { useCartStore } from '@/stores/useCartStore';
 import {
@@ -177,10 +178,10 @@ function selectRegion(region) {
                         <span>Favorites</span>
                     </a>
 
-                    <a href="#" class="hover:text-[#ff5000] transition flex items-center gap-1 text-[#ff5000] font-bold">
+                    <Link href="/solar-hub" class="hover:text-[#ff5000] transition flex items-center gap-1 text-[#ff5000] font-bold">
                         <Sun class="w-3.5 h-3.5 text-amber-500 animate-spin-slow" />
                         <span>Solar Hub</span>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -21,3 +21,7 @@ Route::get('/', function () {
         'featuredProducts' => $featuredProducts,
     ]);
 });
+
+Route::get('/solar-hub', function () {
+    return Inertia::render('SolarHub');
+})->name('solar-hub');
