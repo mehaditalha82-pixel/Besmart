@@ -12,6 +12,8 @@ import HeroDashboard from '@/Components/Home/HeroDashboard.vue';
 import UserProfileCard from '@/Components/Widgets/UserProfileCard.vue';
 import ProductGrid from '@/Components/Products/ProductGrid.vue';
 import FrequentlyBoughtTogether from '@/Components/Products/FrequentlyBoughtTogether.vue';
+import LivePurchaseToast from '@/Components/Conversion/LivePurchaseToast.vue';
+import SpinWheelModal from '@/Components/Conversion/SpinWheelModal.vue';
 import FloatingDock from '@/Components/Navigation/FloatingDock.vue';
 import AiAssistantDrawer from '@/Components/AiAssistantDrawer.vue';
 import {
@@ -109,11 +111,15 @@ function toggleDarkMode() {
                     <TrendingUp class="w-6 h-6 text-[#ff0036]" />
                     Explore Catalog Feed & Recommendations
                 </h2>
-                <span class="text-xs text-gray-500 font-bold">Phase 9 Active</span>
+                <span class="text-xs text-gray-500 font-bold">Phase 11 Conversion Triggers Active</span>
             </div>
 
             <ProductGrid />
         </section>
+
+        <!-- Phase 11 Conversion Triggers -->
+        <LivePurchaseToast />
+        <SpinWheelModal />
 
         <!-- Phase 8 Floating Vertical Toolbar Dock -->
         <FloatingDock />
@@ -124,7 +130,7 @@ function toggleDarkMode() {
         <!-- Footer -->
         <footer class="mt-16 border-t border-gray-200 dark:border-gray-800 py-8 bg-white dark:bg-gray-900 text-center text-xs text-gray-500">
             <div class="max-w-7xl mx-auto px-4">
-                <p>Taobao Enterprise Platform Architecture • Phase 9 Product Feed & Cross-Sell Active</p>
+                <p>Taobao Enterprise Platform Architecture • Phase 11 Conversion Triggers Active</p>
             </div>
         </footer>
     </div>
